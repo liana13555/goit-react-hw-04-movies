@@ -3,6 +3,7 @@ import { Route, useParams, useRouteMatch, useLocation, useHistory, NavLink } fro
 import * as movieAPI from '../../services/movie-api';
 import Cast from '../Cast/Cast';
 import Reviews from '../Reviews/Reviews';
+import { Button, Thumb, Descr, Info } from './MovieDetailsPage.styled';
 
 
 export default function MovieDetailsPage() {
@@ -33,54 +34,63 @@ export default function MovieDetailsPage() {
          
     return (
         <>
-            <button type="button" onClick={goBack}>Back</button>
+            <Button type="button" onClick={goBack}>Go back</Button>
             
             {movieDetails && (
                 <>
-                    <img src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
-                        alt={movieDetails.title}
-                        width="150"
-                    />
-                    <h2>{movieDetails.title} ({movieDetails.release_date.slice(0, 4)})</h2>
-                    <p>Score:
-                        <span> {movieDetails.vote_average}</span>
-                    </p>
-                    <h3>Overview:</h3>
-                    <p>{movieDetails.overview}</p>
-                    <h3>Genres</h3>
-                    <p>{movieDetails.genres.map(genre => genre.name + ' ')}</p>
+                    <Thumb>
+                        <img src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
+                            alt={movieDetails.title}
+                            width="200"
+                        />
+                        <Descr>
+                            <h2>{movieDetails.title} ({movieDetails.release_date.slice(0, 4)})</h2>
+                            <p>User Score:
+                                <span> {movieDetails.vote_average}</span>
+                            </p>
+                            <h3>Overview:</h3>
+                            <p>{movieDetails.overview}</p>
+                            <h3>Genres</h3>
+                            <p>{movieDetails.genres.map(genre => genre.name + ' ')}</p>
+                        </Descr>
+                    </Thumb>
+                    <hr />
 
                     <h3>Additional information:</h3>
-                    <NavLink
-                        to={{
-                            pathname: `${url}/cast`,
-                            state: { from: location?.state?.from ?? "/" },
-                        }}
-                    // className="" activeClassName=""
-                    >
-                        Cast
-                    </NavLink>
+                    <Info>
+                        <NavLink
+                            to={{
+                                pathname: `${url}/cast`,
+                                state: { from: location?.state?.from ?? "/" },
+                            }}
+                        // className="" activeClassName=""
+                        >
+                            Cast
+                        </NavLink>
 
-                    <NavLink
-                        to={{
-                            pathname: `${url}/reviews`,
-                            state: { from: location?.state?.from ?? '/' },
-                        }}
-                    // className="" activeClassName=""
-                    >
-                        Reviews
-                    </NavLink>
+                        <NavLink
+                            to={{
+                                pathname: `${url}/reviews`,
+                                state: { from: location?.state?.from ?? '/' },
+                            }}
+                        // className="" activeClassName=""
+                        >
+                            Reviews
+                        </NavLink>
+                    </Info>
+                    <hr />
                 </>
             )
-                }    
+            }
 
-                    <Route path={`${path}/cast`}>
-                        <Cast movieId={movieId} />
-                    </Route>
+            <Route path={`${path}/cast`}>
+                <Cast movieId={movieId} />
+            </Route>
 
-                    <Route path={`${path}/reviews`}>
-                        <Reviews movieId={movieId} />
-                    </Route>
-                </>        
+            <Route path={`${path}/reviews`}>
+                <Reviews movieId={movieId} />
+            </Route>
+            
+        </>
     );
 }

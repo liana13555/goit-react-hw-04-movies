@@ -1,30 +1,37 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as movieAPI from '../../services/movie-api';
+import defaultImg from '../../image/img_smile.png';
 
 export default function Cast({ movieId }) {
-    const [casts, setCasts] = useState(null);
+    const [cast, setCast] = useState(null);
 
     useEffect(() => {
         movieAPI.fetchMovieCast(movieId).then(data =>
-            setCasts(data.cast));
+            setCast(data.cast));
     }, [movieId]);
 
     return (
         <>
-            <ul>
-                {casts &&
-                    casts.map(cast => (
-                        <li key={cast.id}>
+            <h3>Cast</h3>            
+            {cast && (
+                <ul>
+                    {cast.map(item => (
+                        <li key={item.id}>
                             <img
-                                src={`https://image.tmdb.org/t/p/w500/${cast.profile_path}`}
-                                alt={cast.name}
+                                src={
+                                    item.profile_path
+                                        ? `https://image.tmdb.org/t/p/w500/${item.profile_path}`
+                                        : defaultImg
+                                }
+                                alt={item.name}
                                 width="100px"
                             />
-                            <h3>{cast.name}</h3>
-                            <p>Character: {cast.character}</p>
+                            <h3>{item.name}</h3>
+                            <p>Character: {item.character}</p>
                         </li>
                     ))}
-            </ul>
+                </ul>
+            )}
         </>
     );
 };

@@ -10,7 +10,8 @@ export default function MoviesPage() {
     const location = useLocation();
 
     const [movies, setMovies] = useState([]);
-    const [searchName, setSearchName] = useState('');
+  // eslint-disable-next-line
+    const [movieName, setMovieName] = useState('');
     const [page, setPage] = useState(1);
 
     const searchQuery = new URLSearchParams(location.search).get('query');
@@ -35,9 +36,9 @@ export default function MoviesPage() {
         });
     }, [page, searchQuery]);
 
-    const handleSubmit = searchName => {
-        setSearchName(searchName);
-        history.push({ ...location, search: `query=${searchName}` });
+    const handleSubmit = movieName => {
+        setMovieName(movieName);
+        history.push({ ...location, search: `query=${movieName}`});
     };
 
     const loadMoreBtnClick = () => {

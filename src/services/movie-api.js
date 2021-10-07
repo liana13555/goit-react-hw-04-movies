@@ -21,9 +21,7 @@ export function fetchMovieById(movieId) {
 }
 
 export function fetchMovieCast(movieId) {
-  return fetchMovies(
-    `${BASE_URL}/movie/${movieId}/reviews?api_key=${API_KEY}&language=en-US&page=1`,
-  );
+  return fetchMovies(`${BASE_URL}/movie/${movieId}/credits?api_key=${API_KEY}&language=en-US`);
 }
 
 export function fetchMovieReviews(movieId) {
