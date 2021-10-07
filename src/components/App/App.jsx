@@ -4,6 +4,8 @@ import Navigation from '../Navigation/Navigation.jsx';
 import HomePage from '../../views/HomePage/HomePage.jsx';
 import MoviesPage from '../../views/MoviesPage/MoviesPage.jsx';
 import NotFoundView from '../../views/NotFoundView/NotFoundView';
+import MovieDetailsPage from '../../views/MovieDetailsPage/MovieDetailsPage';
+
 
 function App() {
   return (
@@ -18,11 +20,15 @@ function App() {
           <MoviesPage />
         </Route>
 
+        <Route path="/movies/:movieId">
+            <MovieDetailsPage />
+        </Route>
+
         <Route>
           <NotFoundView />
         </Route>
       </Switch>
-      
+
     </Container>
   );
 }
