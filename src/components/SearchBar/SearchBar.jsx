@@ -1,3 +1,4 @@
+import { Button } from './SearchBar.styled';
 
 export default function SearchBar({ onSearch }) {
   const handleSearch = e => {
@@ -20,9 +21,9 @@ export default function SearchBar({ onSearch }) {
           placeholder="Enter movie name"
          
         />
-        <button type="submit">
+        <Button type="submit">
           <span>Search</span>
-        </button>
+        </Button>
       </form>
     </div>
   );

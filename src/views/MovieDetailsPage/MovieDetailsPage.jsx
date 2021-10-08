@@ -1,10 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Route, useParams, useRouteMatch, useLocation, useHistory, NavLink } from 'react-router-dom';
 import * as movieAPI from '../../services/movie-api';
-import Cast from '../Cast/Cast';
-import Reviews from '../Reviews/Reviews';
 import { Button, Thumb, Descr, Info } from './MovieDetailsPage.styled';
+import Spinner from '../../components/Loader/Loader';
+// import Cast from '../Cast/Cast';
+// import Reviews from '../Reviews/Reviews';
 
+
+const Cast = lazy(() => import('../Cast/Cast'/* webpackChunkName: "cast" */));
+const Reviews = lazy(() => import('../Reviews/Reviews'/* webpackChunkName: "reviews" */));
 
 export default function MovieDetailsPage() {
     const { movieId } = useParams();
@@ -41,7 +45,7 @@ export default function MovieDetailsPage() {
                     <Thumb>
                         <img src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
                             alt={movieDetails.title}
-                            width="200"
+                            width="320"
                         />
                         <Descr>
                             <h2>{movieDetails.title} ({movieDetails.release_date.slice(0, 4)})</h2>
@@ -83,14 +87,15 @@ export default function MovieDetailsPage() {
             )
             }
 
-            <Route path={`${path}/cast`}>
-                <Cast movieId={movieId} />
-            </Route>
+            <Suspense fallback={<Spinner />}>
+                <Route path={`${path}/cast`}>
+                    <Cast movieId={movieId} />
+                </Route>
 
-            <Route path={`${path}/reviews`}>
-                <Reviews movieId={movieId} />
-            </Route>
-            
+                <Route path={`${path}/reviews`}>
+                    <Reviews movieId={movieId} />
+                </Route>
+            </Suspense>
         </>
     );
 }
