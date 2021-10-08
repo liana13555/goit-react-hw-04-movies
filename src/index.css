@@ -6,6 +6,9 @@ body {
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-color: #6b6767; */
+  background: url(./image/white2.jpg);
+  background-size: cover;
 }
 
 code {
@@ -40,6 +43,6 @@ ul {
 }
 
 .activeLink {
-  color: #2196f3;
+  color: #0e23e6;
   font-size: 24px;
 }

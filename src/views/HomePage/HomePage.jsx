@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import * as movieAPI from '../../services/movie-api';
-import { PageHeading } from './HomePage.styled';
+import { PageHeading, List, ItemList, Img, Title } from './HomePage.styled';
 
 export default function HomePage() {
     // const { url } = useRouteMatch();
@@ -18,20 +18,25 @@ export default function HomePage() {
         <>
             <PageHeading>Trending today</PageHeading>
             {movies && (
-                <ul>
+                <List>
                     {movies.map(movie => (
-                        <li key={movie.id}>
+                        <ItemList key={movie.id}>
                             <Link
                                 to={{
                                     pathname: `movies/${movie.id}`,
                                     state: { params: location },
                                 }}
                             >
-                                {movie.title}
+                                <Img
+                                    src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                                    alt={movie.original_title ?? movie.name}
+                                    width = "240px"
+                                />                                
                             </Link>
-                        </li>
+                            <Title>{movie.original_title ?? movie.name}</Title>
+                        </ItemList>
                     ))}
-                </ul>
+                </List>
             )}
         </>
     );

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useHistory, useLocation, NavLink, useRouteMatch } from 'react-router-dom';
 import * as movieAPI from '../../services/movie-api';
 import SearchBar from '../../components/SearchBar/SearchBar';
-import LoadMoreBtnClick from '../../components/LoadMoreBtn/LoadMoreBtn';
+import { List, ItemList, Title, Button, Img } from './MoviesPage.styled';
 
 export default function MoviesPage() {
     const { url } = useRouteMatch();
@@ -41,39 +41,40 @@ export default function MoviesPage() {
         history.push({ ...location, search: `query=${movieName}`});
     };
 
-    const loadMoreBtnClick = () => {
+    const handleLoadMoreBtn = () => {
         setPage(prevPage => prevPage + 1);
     };
 
-    const showButton = movies.length > 20;
+    const showButton = movies.length >= 20;
   
     return (
     <div>
       <SearchBar onSearch={handleSubmit} />
       {movies && (
-        <ul>
+        <List>
           {movies.map(movie => (
-            <li key={movie.id}>
+            <ItemList key={movie.id}>
               <NavLink
                 to={{
                   pathname: `${url}/${movie.id}`,
                   state: { from: { location } },
                 }}
               >
-                <img
+                <Img
                   src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                   alt={movie.original_title ?? movie.name}
+                  width = "240px"
                 />
               </NavLink>
-              <h2>
+              <Title>
                 {movie.name && movie.name}
                 {movie.original_title}
-              </h2>
-            </li>
+              </Title>
+            </ItemList>
           ))}
-        </ul>
+        </List>
       )}
-      {showButton && <LoadMoreBtnClick onClick={loadMoreBtnClick} />}
+      {showButton && <Button onClick={handleLoadMoreBtn}>Load more</Button>}
     </div>
   );
 }

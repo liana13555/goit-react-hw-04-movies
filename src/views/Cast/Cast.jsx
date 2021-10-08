@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as movieAPI from '../../services/movie-api';
 import defaultImg from '../../image/img_smile.png';
+import { List } from './Cast.styled';
 
 export default function Cast({ movieId }) {
     const [cast, setCast] = useState(null);
@@ -14,7 +15,7 @@ export default function Cast({ movieId }) {
         <>
             <h3>Cast</h3>            
             {cast && (
-                <ul>
+                <List>
                     {cast.map(item => (
                         <li key={item.id}>
                             <img
@@ -30,7 +31,7 @@ export default function Cast({ movieId }) {
                             <p>Character: {item.character}</p>
                         </li>
                     ))}
-                </ul>
+                </List>
             )}
         </>
     );

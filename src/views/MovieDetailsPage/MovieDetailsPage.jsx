@@ -29,6 +29,7 @@ export default function MovieDetailsPage() {
             .catch((error) => {
                 console.log(error);
                 history.push(locationFrom ?? "/movies");
+                alert('Sorry, there is no information about the movie')
             });
     }, [movieId, history, locationFrom]);
 
@@ -45,7 +46,7 @@ export default function MovieDetailsPage() {
                     <Thumb>
                         <img src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
                             alt={movieDetails.title}
-                            width="320"
+                            width="240"
                         />
                         <Descr>
                             <h2>{movieDetails.title} ({movieDetails.release_date.slice(0, 4)})</h2>
