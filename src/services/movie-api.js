@@ -13,7 +13,7 @@ export function fetchTrendingMovies() {
 
 export function fetchSearchMovie(query, page) {
   return fetchMovies(
-    `${BASE_URL}/search/movie?api_key=${API_KEY}&page=${page}&query=${query}&language=en-US&page=1&include_adult=false`,
+    `${BASE_URL}/search/movie?api_key=${API_KEY}&page=${page}&query=${query}&language=en-US&include_adult=false`,
   );
 }
 

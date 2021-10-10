@@ -3,10 +3,11 @@ import { Button } from './SearchBar.styled';
 export default function SearchBar({ onSearch }) {
   const handleSearch = e => {
     e.preventDefault();
-    if (e.target.elements.searchName.value.toLowerCase().trim() === '') {
-    
+    const target = e.target.elements.searchName.value.toLowerCase();
+    if (target.trim() === '') {
+      return "The search field is empty!";
     }
-    onSearch(e.target.elements.searchName.value.toLowerCase());
+    onSearch(target);
     e.target.reset()
   };
 

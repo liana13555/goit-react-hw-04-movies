@@ -14,7 +14,7 @@ export default function MoviesPage() {
     const [movieName, setMovieName] = useState('');
     const [page, setPage] = useState(1);
 
-    const searchQuery = new URLSearchParams(location.search).get('query');
+    const searchQuery = new URLSearchParams(location.search).get("query") ?? "";
 
     useEffect(() => {
         if (!searchQuery) return;
