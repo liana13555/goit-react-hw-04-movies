@@ -3,6 +3,7 @@ const API_KEY = '03656638042d26ef49e35d414cb358f5';
 
 async function fetchMovies(url = '', config = {}) {
   const response = await fetch(url, config);
+
   return response.ok ? await response.json() : Promise.reject(new Error('Not found'));
 }
 

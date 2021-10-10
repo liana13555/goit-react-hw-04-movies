@@ -19,27 +19,21 @@ export default function MoviesPage() {
     useEffect(() => {
         if (!searchQuery) return;
 
-        movieAPI.fetchSearchMovie(searchQuery, page).then(data => {
-            if (data.results) {
-                return setMovies(data.results);
-            }
-            if (data.results.length === 0) {
-                return;
-            }
+      movieAPI.fetchSearchMovie(searchQuery, page).then(data => {
+        if (data.results.length === 0) {
+          return;
+        } if (data.results) {
+          return setMovies(prevMovies => [...prevMovies, ...data.results]);
+        }
+      });
+    }, [searchQuery, page]);
 
-            setMovies(prevMovies => [...prevMovies, ...data.results]);
-            page > 1 &&
-                window.scrollTo({
-                    top: document.documentElement.scrollHeight,
-                    behavior: 'smooth',
-                });
-        });
-    }, [page, searchQuery]);
-
-    const handleSubmit = movieName => {
-        setMovieName(movieName);
-        history.push({ ...location, search: `query=${movieName}`});
-    };
+  const handleSubmit = movieName => {
+    setMovieName(movieName);
+    setPage(1);
+    setMovies([]);
+    history.push({ ...location, search: `query=${movieName}` });
+  };
 
     const handleLoadMoreBtn = () => {
         setPage(prevPage => prevPage + 1);
@@ -63,7 +57,7 @@ export default function MoviesPage() {
                 <Img
                   src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                   alt={movie.original_title ?? movie.name}
-                  width = "240px"
+                  width = "300px"
                 />
               </NavLink>
               <Title>
@@ -74,7 +68,7 @@ export default function MoviesPage() {
           ))}
         </List>
       )}
-      {showButton && <Button onClick={handleLoadMoreBtn}>Load more</Button>}
+      {showButton && (<Button onClick={handleLoadMoreBtn}>Load more</Button>)}
     </div>
   );
 }
